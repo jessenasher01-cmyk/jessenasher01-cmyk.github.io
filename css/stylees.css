@@ -637,26 +637,132 @@ body {
     }
 
 }
-/* Force mobile layout fix */
+/* ===== MOBILE FIXES ===== */
 @media (max-width: 768px) {
-    body {
-        padding: 0;
-        margin: 0;
+    /* Top header */
+    .top-header .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
     }
-    .container {
-        width: 100%;
-        padding: 0 15px;
+    
+    .top-header-left span,
+    .top-header-right span {
+        display: block;
+        margin: 5px 0;
     }
-    .why-grid, .services-grid, .projects-grid {
-        grid-template-columns: 1fr !important;
-    }
-    .hero h1 {
-        font-size: 32px !important;
-    }
-    .nav-links {
+    
+    /* Main header */
+    .nav-menu {
         display: none;
     }
+    
     .mobile-menu-btn {
         display: block;
+    }
+    
+    .logo {
+        text-align: center;
+    }
+    
+    /* Hero section */
+    .hero {
+        height: 500px;
+    }
+    
+    .hero h1 {
+        font-size: 28px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    /* Why Us section */
+    .why-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .why-card {
+        margin-bottom: 20px;
+    }
+    
+    /* Services section */
+    .services-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .service-card {
+        margin-bottom: 20px;
+    }
+    
+    /* Projects section */
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .project-category {
+        margin-bottom: 20px;
+    }
+    
+    /* Contact section */
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .contact-map {
+        min-height: 300px;
+        margin-top: 20px;
+    }
+    
+    .contact-info {
+        padding: 20px;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .footer-col {
+        margin-bottom: 30px;
+    }
+    
+    .newsletter-form {
+        flex-direction: column;
+    }
+    
+    .newsletter-input {
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .newsletter-btn {
+        border-radius: 5px;
+    }
+    
+    /* Scroll button */
+    .scroll-top {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 24px;
+    }
+    
+    .section-title {
+        font-size: 24px;
+    }
+    
+    .btn {
+        padding: 12px 24px;
+        font-size: 14px;
     }
 }
