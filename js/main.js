@@ -16,12 +16,23 @@ function initMobileMenu() {
     
     if (menuBtn && navMenu) {
         console.log('Mobile menu found, adding click event');
+        
+        // Make sure menu is hidden on mobile by default
+        if (window.innerWidth <= 768) {
+            navMenu.style.display = 'none';
+        }
+        
         menuBtn.addEventListener('click', function() {
             console.log('Menu button clicked');
             if (navMenu.style.display === 'flex' || navMenu.style.display === 'block') {
                 navMenu.style.display = 'none';
             } else {
                 navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.width = '100%';
+                navMenu.style.backgroundColor = 'white';
+                navMenu.style.padding = '20px';
+                navMenu.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
             }
         });
     } else {
@@ -35,14 +46,10 @@ function initTabs() {
     
     tabBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Remove active class from all buttons and contents
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             
-            // Add active class to clicked button
             this.classList.add('active');
-            
-            // Show corresponding content
             const tabId = this.getAttribute('data-tab');
             const content = document.getElementById(tabId);
             if (content) {
@@ -57,10 +64,8 @@ function initScrollToTop() {
     const scrollBtn = document.querySelector('.scroll-top');
     
     if (scrollBtn) {
-        // Hide button initially
         scrollBtn.style.display = 'none';
         
-        // Show/hide button on scroll
         window.addEventListener('scroll', function() {
             if (window.scrollY > 500) {
                 scrollBtn.style.display = 'flex';
@@ -69,7 +74,6 @@ function initScrollToTop() {
             }
         });
         
-        // Scroll to top on click
         scrollBtn.addEventListener('click', function() {
             window.scrollTo({
                 top: 0,
@@ -79,7 +83,7 @@ function initScrollToTop() {
     }
 }
 
-// ===== SMOOTH SCROLLING FOR NAVIGATION LINKS =====
+// ===== SMOOTH SCROLLING =====
 function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -94,7 +98,7 @@ function initSmoothScrolling() {
                     behavior: 'smooth'
                 });
                 
-                // Close mobile menu after clicking (if open)
+                // Close mobile menu after clicking
                 const navMenu = document.querySelector('.nav-menu');
                 if (navMenu && window.innerWidth <= 768) {
                     navMenu.style.display = 'none';
@@ -109,9 +113,13 @@ window.addEventListener('resize', function() {
     const navMenu = document.querySelector('.nav-menu');
     if (navMenu) {
         if (window.innerWidth > 768) {
-            navMenu.style.display = 'flex'; // Show desktop menu
+            navMenu.style.display = 'flex';
+            navMenu.style.flexDirection = 'row';
+            navMenu.style.width = 'auto';
+            navMenu.style.padding = '0';
+            navMenu.style.boxShadow = 'none';
         } else {
-            navMenu.style.display = 'none'; // Hide mobile menu by default
+            navMenu.style.display = 'none';
         }
     }
 });
