@@ -317,3 +317,83 @@ body {
         font-size: 14px;
     }
 }
+/* ===== CONTACT SECTION FIXES ===== */
+.contact-info {
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    word-break: break-word;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.info-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    flex-shrink: 0; /* Prevents icon from shrinking */
+}
+
+.info-text {
+    flex: 1;
+}
+
+.info-text h4 {
+    color: #667eea;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.info-text p {
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+/* Mobile fixes */
+@media (max-width: 768px) {
+    .info-item {
+        gap: 12px;
+    }
+    
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .info-text h4 {
+        font-size: 16px;
+    }
+    
+    .info-text p {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .info-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
