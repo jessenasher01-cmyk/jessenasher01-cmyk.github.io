@@ -1,6 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<style>
+    /* FORCE MOBILE LAYOUT - TEMPORARY TEST */
+    @media (max-width: 768px) {
+        /* Force all grids to single column */
+        .why-grid, 
+        .services-grid, 
+        .projects-grid,
+        .footer-grid,
+        .contact-grid {
+            display: block !important;
+        }
+        
+        .why-card,
+        .service-card,
+        .project-category,
+        .footer-col {
+            width: 100% !important;
+            margin-bottom: 20px !important;
+            float: none !important;
+        }
+        
+        /* Fix header */
+        .top-header .container {
+            display: block !important;
+            text-align: center !important;
+        }
+        
+        .top-header-left span,
+        .top-header-right span {
+            display: inline-block !important;
+            margin: 5px !important;
+        }
+        
+        /* Hide desktop menu, show mobile button */
+        .nav-menu {
+            display: none !important;
+        }
+        
+        .mobile-menu-btn {
+            display: block !important;
+            text-align: right !important;
+        }
+        
+        .logo {
+            text-align: center !important;
+        }
+        
+        /* Hero section */
+        .hero h1 {
+            font-size: 28px !important;
+        }
+        
+        .hero p {
+            font-size: 16px !important;
+        }
+        
+        /* Contact section */
+        .contact-info {
+            padding: 20px !important;
+        }
+        
+        .contact-map {
+            min-height: 300px !important;
+            margin-top: 20px !important;
+        }
+        
+        /* Footer */
+        .newsletter-form {
+            display: block !important;
+        }
+        
+        .newsletter-input {
+            width: 100% !important;
+            margin-bottom: 10px !important;
+            border-radius: 5px !important;
+        }
+        
+        .newsletter-btn {
+            width: 100% !important;
+            border-radius: 5px !important;
+        }
+    }
+</style><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ramasphere Digital - Marketing Agency</title>
@@ -363,3 +445,4 @@
     <script src="js/main.js"></script>
 </body>
 </html>
+
