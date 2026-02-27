@@ -1,25 +1,31 @@
 // ===== MAIN JAVASCRIPT =====
-
-// DOM Content Loaded
+// Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Initialize all functions
+    console.log('Page loaded, initializing...');
     initMobileMenu();
     initTabs();
     initScrollToTop();
     initSmoothScrolling();
-    
 });
 
 // ===== MOBILE MENU =====
 function initMobileMenu() {
+    console.log('Initializing mobile menu...');
     const menuBtn = document.querySelector('.mobile-menu-btn');
     const navMenu = document.querySelector('.nav-menu');
     
     if (menuBtn && navMenu) {
+        console.log('Mobile menu found, adding click event');
         menuBtn.addEventListener('click', function() {
-            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            console.log('Menu button clicked');
+            if (navMenu.style.display === 'flex' || navMenu.style.display === 'block') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'flex';
+            }
         });
+    } else {
+        console.log('Mobile menu elements not found');
     }
 }
 
@@ -38,7 +44,10 @@ function initTabs() {
             
             // Show corresponding content
             const tabId = this.getAttribute('data-tab');
-            document.getElementById(tabId).classList.add('active');
+            const content = document.getElementById(tabId);
+            if (content) {
+                content.classList.add('active');
+            }
         });
     });
 }
@@ -47,24 +56,27 @@ function initTabs() {
 function initScrollToTop() {
     const scrollBtn = document.querySelector('.scroll-top');
     
-    if (!scrollBtn) return;
-    
-    // Show/hide button on scroll
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 500) {
-            scrollBtn.style.display = 'flex';
-        } else {
-            scrollBtn.style.display = 'none';
-        }
-    });
-    
-    // Scroll to top on click
-    scrollBtn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    if (scrollBtn) {
+        // Hide button initially
+        scrollBtn.style.display = 'none';
+        
+        // Show/hide button on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 500) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
         });
-    });
+        
+        // Scroll to top on click
+        scrollBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 }
 
 // ===== SMOOTH SCROLLING FOR NAVIGATION LINKS =====
@@ -81,33 +93,25 @@ function initSmoothScrolling() {
                 targetElement.scrollIntoView({
                     behavior: 'smooth'
                 });
+                
+                // Close mobile menu after clicking (if open)
+                const navMenu = document.querySelector('.nav-menu');
+                if (navMenu && window.innerWidth <= 768) {
+                    navMenu.style.display = 'none';
+                }
             }
         });
     });
 }
 
-// ===== FORM SUBMISSION (NEWSLETTER) =====
-function handleNewsletterSubmit(event) {
-    event.preventDefault();
-    const email = event.target.querySelector('input[type="email"]').value;
-    
-    if (email) {
-        alert('Thank you for subscribing to our newsletter!');
-        event.target.reset();
+// ===== WINDOW RESIZE HANDLER =====
+window.addEventListener('resize', function() {
+    const navMenu = document.querySelector('.nav-menu');
+    if (navMenu) {
+        if (window.innerWidth > 768) {
+            navMenu.style.display = 'flex'; // Show desktop menu
+        } else {
+            navMenu.style.display = 'none'; // Hide mobile menu by default
+        }
     }
-}
-
-// ===== CONTACT FORM SUBMISSION =====
-function handleContactSubmit(event) {
-    event.preventDefault();
-    
-    // Get form data
-    const name = document.getElementById('name')?.value;
-    const email = document.getElementById('email')?.value;
-    const message = document.getElementById('message')?.value;
-    
-    if (name && email && message) {
-        alert('Thank you for your message! We will get back to you soon.');
-        event.target.reset();
-    }
-}
+});
