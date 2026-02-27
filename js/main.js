@@ -1,5 +1,4 @@
 // ===== MAIN JAVASCRIPT =====
-// Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded, initializing...');
     initMobileMenu();
@@ -123,3 +122,13 @@ window.addEventListener('resize', function() {
         }
     }
 });
+
+// ===== NEWSLETTER FORM =====
+function handleNewsletterSubmit(event) {
+    event.preventDefault();
+    const email = event.target.querySelector('input[type="email"]').value;
+    if (email) {
+        alert('Thank you for subscribing to our newsletter!');
+        event.target.reset();
+    }
+}
