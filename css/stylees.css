@@ -667,3 +667,18 @@ body {
         font-size: 24px;
     }
 }
+/* ===== FIXED MENU STYLES ===== */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    .mobile-menu-btn {
+        display: block !important;
+    }
+}
