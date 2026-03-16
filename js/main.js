@@ -132,12 +132,8 @@ function handleNewsletterSubmit(event) {
         event.target.reset();
     }
 }
-// ===== CATALOG CAROUSEL =====
+// ===== CAROUSEL FUNCTIONALITY =====
 document.addEventListener('DOMContentLoaded', function() {
-    initCatalogCarousel();
-});
-
-function initCatalogCarousel() {
     const track = document.querySelector('.carousel-track');
     const prevBtn = document.querySelector('.carousel-prev');
     const nextBtn = document.querySelector('.carousel-next');
@@ -145,101 +141,39 @@ function initCatalogCarousel() {
     
     if (!track || !prevBtn || !nextBtn) return;
     
-    const items = track.children;
-    const itemWidth = items[0].getBoundingClientRect().width;
-    let currentIndex = 0;
-    let autoplayInterval;
+    const items = document.querySelectorAll('.carousel-item');
+    const itemCount = items.length;
     
     // Create dots
-    function createDots() {
-        dotsContainer.innerHTML = '';
-        for (let i = 0; i < items.length; i++) {
-            const dot = document.createElement('button');
-            dot.className = 'dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-            dot.addEventListener('click', () => {
-                goToSlide(i);
-                resetAutoplay();
-            });
-            dotsContainer.appendChild(dot);
-        }
+    for (let i = 0; i < itemCount; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => {
+            items[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+            updateDots(i);
+        });
+        dotsContainer.appendChild(dot);
     }
     
-    // Go to specific slide
-    function goToSlide(index) {
-        track.scrollTo({
-            left: index * itemWidth,
-            behavior: 'smooth'
-        });
-        
-        currentIndex = index;
-        
-        // Update dots
+    function updateDots(index) {
         document.querySelectorAll('.dot').forEach((dot, i) => {
-            if (i === index) {
-                dot.classList.add('active');
-            } else {
-                dot.classList.remove('active');
-            }
+            dot.classList.toggle('active', i === index);
         });
     }
     
-    // Next slide
-    function nextSlide() {
-        const maxIndex = items.length - 1;
-        const nextIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
-        goToSlide(nextIndex);
-    }
-    
-    // Previous slide
-    function prevSlide() {
-        const maxIndex = items.length - 1;
-        const prevIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
-        goToSlide(prevIndex);
-    }
-    
-    // Start autoplay (10 seconds)
-    function startAutoplay() {
-        if (autoplayInterval) clearInterval(autoplayInterval);
-        autoplayInterval = setInterval(nextSlide, 10000); // 10 seconds
-    }
-    
-    // Reset autoplay after manual navigation
-    function resetAutoplay() {
-        startAutoplay();
-    }
-    
-    // Initialize
-    createDots();
-    startAutoplay();
-    
-    // Event listeners
     prevBtn.addEventListener('click', () => {
-        prevSlide();
-        resetAutoplay();
+        track.scrollBy({ left: -300, behavior: 'smooth' });
     });
     
     nextBtn.addEventListener('click', () => {
-        nextSlide();
-        resetAutoplay();
+        track.scrollBy({ left: 300, behavior: 'smooth' });
     });
     
-    // Pause autoplay on hover
-    track.addEventListener('mouseenter', () => {
-        clearInterval(autoplayInterval);
+    // Update dots on scroll
+    track.addEventListener('scroll', () => {
+        const scrollPosition = track.scrollLeft;
+        const itemWidth = items[0].offsetWidth + 20; // width + gap
+        const activeIndex = Math.round(scrollPosition / itemWidth);
+        updateDots(activeIndex);
     });
-    
-    track.addEventListener('mouseleave', () => {
-        startAutoplay();
-    });
-    
-    // Handle resize
-    window.addEventListener('resize', () => {
-        // Recalculate current position
-        const newItemWidth = items[0].getBoundingClientRect().width;
-        track.scrollTo({
-            left: currentIndex * newItemWidth,
-            behavior: 'auto'
-        });
-    });
-}
+});
