@@ -570,7 +570,93 @@
             <p style="margin-top: 10px; font-size: 14px;">Thank you for visiting Ramasphere Digital. We look forward to working with you!</p>
         </div>
     </div>
-</footer>
-
+            </footer>
+        
+        <!-- SCROLL TO TOP BUTTON -->
+        <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
+        
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Carousel Script -->
+    <script>
+        // SIMPLE CAROUSEL
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            
+            if (!track || !prevBtn || !nextBtn) return;
+            
+            const items = document.querySelectorAll('.carousel-item');
+            const itemCount = items.length;
+            let currentIndex = 0;
+            
+            // Create dots
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < itemCount; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('data-index', i);
+                dot.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    goToSlide(index);
+                });
+                dotsContainer.appendChild(dot);
+            }
+            
+            // Go to slide function
+            function goToSlide(index) {
+                const itemWidth = items[0].offsetWidth + 20;
+                track.scrollTo({
+                    left: index * itemWidth,
+                    behavior: 'smooth'
+                });
+                currentIndex = index;
+                
+                // Update dots
+                document.querySelectorAll('.dot').forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Next slide
+            nextBtn.addEventListener('click', function() {
+                let nextIndex = currentIndex + 1;
+                if (nextIndex >= itemCount) {
+                    nextIndex = 0;
+                }
+                goToSlide(nextIndex);
+            });
+            
+            // Previous slide
+            prevBtn.addEventListener('click', function() {
+                let prevIndex = currentIndex - 1;
+                if (prevIndex < 0) {
+                    prevIndex = itemCount - 1;
+                }
+                goToSlide(prevIndex);
+            });
+            
+            // Auto rotate every 5 seconds
+            setInterval(function() {
+                let nextIndex = currentIndex + 1;
+                if (nextIndex >= itemCount) {
+                    nextIndex = 0;
+                }
+                goToSlide(nextIndex);
+            }, 5000);
+        });
+    </script>
+    
+</body>
+</html>
 <!-- SCROLL TO TOP BUTTON -->
 <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
