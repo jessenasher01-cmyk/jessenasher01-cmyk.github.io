@@ -132,7 +132,7 @@ function handleNewsletterSubmit(event) {
         event.target.reset();
     }
 }
-// ===== CAROUSEL FUNCTIONALITY =====
+// ===== CAROUSEL WITH AUTO ROTATION =====
 document.addEventListener('DOMContentLoaded', function() {
     const track = document.querySelector('.carousel-track');
     const prevBtn = document.querySelector('.carousel-prev');
@@ -143,37 +143,83 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const items = document.querySelectorAll('.carousel-item');
     const itemCount = items.length;
+    let autoScrollInterval;
+    let currentIndex = 0;
     
     // Create dots
+    dotsContainer.innerHTML = '';
     for (let i = 0; i < itemCount; i++) {
         const dot = document.createElement('button');
         dot.className = 'dot' + (i === 0 ? ' active' : '');
         dot.addEventListener('click', () => {
-            items[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-            updateDots(i);
+            goToSlide(i);
+            resetAutoScroll();
         });
         dotsContainer.appendChild(dot);
     }
     
+    // Go to specific slide
+    function goToSlide(index) {
+        const itemWidth = items[0].offsetWidth + 20; // width + gap
+        track.scrollTo({
+            left: index * itemWidth,
+            behavior: 'smooth'
+        });
+        currentIndex = index;
+        updateDots(index);
+    }
+    
+    // Update dots
     function updateDots(index) {
         document.querySelectorAll('.dot').forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
         });
     }
     
+    // Next slide
+    function nextSlide() {
+        const maxIndex = itemCount - 1;
+        const nextIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        goToSlide(nextIndex);
+    }
+    
+    // Previous slide
+    function prevSlide() {
+        const maxIndex = itemCount - 1;
+        const prevIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+        goToSlide(prevIndex);
+    }
+    
+    // Auto scroll every 10 seconds
+    function startAutoScroll() {
+        if (autoScrollInterval) clearInterval(autoScrollInterval);
+        autoScrollInterval = setInterval(nextSlide, 5000); // 5 seconds (change to 10000 for 10 seconds)
+    }
+    
+    function resetAutoScroll() {
+        startAutoScroll();
+    }
+    
+    // Event listeners
     prevBtn.addEventListener('click', () => {
-        track.scrollBy({ left: -300, behavior: 'smooth' });
+        prevSlide();
+        resetAutoScroll();
     });
     
     nextBtn.addEventListener('click', () => {
-        track.scrollBy({ left: 300, behavior: 'smooth' });
+        nextSlide();
+        resetAutoScroll();
     });
     
-    // Update dots on scroll
-    track.addEventListener('scroll', () => {
-        const scrollPosition = track.scrollLeft;
-        const itemWidth = items[0].offsetWidth + 20; // width + gap
-        const activeIndex = Math.round(scrollPosition / itemWidth);
-        updateDots(activeIndex);
+    // Pause on hover
+    track.addEventListener('mouseenter', () => {
+        clearInterval(autoScrollInterval);
     });
+    
+    track.addEventListener('mouseleave', () => {
+        startAutoScroll();
+    });
+    
+    // Start auto scroll
+    startAutoScroll();
 });
