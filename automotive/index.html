@@ -142,5 +142,49 @@
 <!-- SCROLL TO TOP BUTTON -->
 <button class="scroll-top"><i class="fas fa-arrow-up"></i></button> -->
     </div>
+    <!-- Mobile Menu JavaScript -->
+<script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (menuBtn && navMenu) {
+            // Hide menu on mobile by default
+            if (window.innerWidth <= 768) {
+                navMenu.style.display = 'none';
+            }
+            
+            menuBtn.addEventListener('click', function() {
+                if (navMenu.style.display === 'flex') {
+                    navMenu.style.display = 'none';
+                } else {
+                    navMenu.style.display = 'flex';
+                    navMenu.style.flexDirection = 'column';
+                    navMenu.style.width = '100%';
+                    navMenu.style.backgroundColor = 'white';
+                    navMenu.style.padding = '20px';
+                    navMenu.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+                }
+            });
+        }
+    });
+
+    // Window resize handler
+    window.addEventListener('resize', function() {
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu) {
+            if (window.innerWidth > 768) {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'row';
+                navMenu.style.width = 'auto';
+                navMenu.style.padding = '0';
+                navMenu.style.boxShadow = 'none';
+            } else {
+                navMenu.style.display = 'none';
+            }
+        }
+    });
+</script>
 </body>
 </html>
