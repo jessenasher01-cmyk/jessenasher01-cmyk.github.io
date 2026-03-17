@@ -838,7 +838,83 @@ body {
     color: #017fa2;
     margin-bottom: 5px;
 }
+/* ===== CATEGORY NAVIGATION STYLES ===== */
+.category-nav {
+    background: #f8f9fa;
+    padding: 15px 0;
+    border-bottom: 2px solid #017fa2;
+    margin-bottom: 30px;
+}
 
+.category-nav .container {
+    display: flex;
+    justify-content: center;
+}
+
+.category-nav .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-nav .nav-links a {
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+/* Home link - always teal */
+.category-nav .nav-links a.home-link {
+    background: #017fa2;
+    color: white;
+}
+
+.category-nav .nav-links a.home-link:hover {
+    background: #016a88;
+}
+
+/* Category links - default gray */
+.category-nav .nav-links a.category-link {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.category-nav .nav-links a.category-link:hover {
+    background: #017fa2;
+    color: white;
+}
+
+/* Active page - black */
+.category-nav .nav-links a.active {
+    background: #333 !important;
+    color: white !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .category-nav .nav-links {
+        gap: 10px;
+    }
+    
+    .category-nav .nav-links a {
+        padding: 6px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-nav .nav-links a {
+        padding: 5px 12px;
+        font-size: 13px;
+    }
+}
 .carousel-prev,
 .carousel-next {
     position: absolute;
