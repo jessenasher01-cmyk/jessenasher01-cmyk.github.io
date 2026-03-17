@@ -48,6 +48,22 @@
                 </div>
             </div>
         </header>
+        <!-- CATEGORY NAVIGATION MENU - Add this after your header -->
+<div style="background: #f8f9fa; padding: 15px 0; border-bottom: 2px solid #017fa2; margin-bottom: 30px;">
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center;">
+            <a href="../index.html" style="background: #017fa2; color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">🏠 Home</a>
+            <a href="../food/" style="background: #f0f0f0; color: #333; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">🍔 Food</a>
+            <a href="../sports/" style="background: #f0f0f0; color: #333; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">⚽ Sports</a>
+            <a href="../fashion/" style="background: #f0f0f0; color: #333; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">👕 Fashion</a>
+            <a href="../technology/" style="background: #f0f0f0; color: #333; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">💻 Technology</a>
+            <a href="../home-living/" style="background: #f0f0f0; color: #333; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">🏠 Home & Living</a>
+            <a href="../automotive/" style="background: #333; color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">🚗 Automotive</a>
+            <a href="../event/" style="background: #f0f0f0; color: #333; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">📅 Event</a>
+            <a href="../health/" style="background: #f0f0f0; color: #333; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; display: inline-block;">❤️ Health</a>
+        </div>
+    </div>
+</div>
         
         <section class="section">
     <div class="container">
@@ -124,5 +140,49 @@
 <!-- SCROLL TO TOP BUTTON -->
 <button class="scroll-top"><i class="fas fa-arrow-up"></i></button> -->
     </div>
+    <!-- Mobile Menu JavaScript -->
+<script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (menuBtn && navMenu) {
+            // Hide menu on mobile by default
+            if (window.innerWidth <= 768) {
+                navMenu.style.display = 'none';
+            }
+            
+            menuBtn.addEventListener('click', function() {
+                if (navMenu.style.display === 'flex') {
+                    navMenu.style.display = 'none';
+                } else {
+                    navMenu.style.display = 'flex';
+                    navMenu.style.flexDirection = 'column';
+                    navMenu.style.width = '100%';
+                    navMenu.style.backgroundColor = 'white';
+                    navMenu.style.padding = '20px';
+                    navMenu.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+                }
+            });
+        }
+    });
+
+    // Window resize handler
+    window.addEventListener('resize', function() {
+        const navMenu = document.querySelector('.nav-menu');
+        if (navMenu) {
+            if (window.innerWidth > 768) {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'row';
+                navMenu.style.width = 'auto';
+                navMenu.style.padding = '0';
+                navMenu.style.boxShadow = 'none';
+            } else {
+                navMenu.style.display = 'none';
+            }
+        }
+    });
+</script>
 </body>
 </html>
